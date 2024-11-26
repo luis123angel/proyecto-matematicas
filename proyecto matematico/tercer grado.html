@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criterios de Congruencia de Triángulos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin: 10px 0;
+            display: block;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Criterios de Congruencia de Triángulos</h1>
+
+    <!-- Selección del criterio de congruencia -->
+    <label for="criteria">Selecciona un criterio de congruencia:</label>
+    <select id="criteria" onchange="generateExercise()">
+        <option value="LLL">Lado-Lado-Lado (LLL)</option>
+        <option value="LAL">Lado-Ángulo-Lado (LAL)</option>
+        <option value="ALA">Ángulo-Lado-Ángulo (ALA)</option>
+        <option value="AAL">Ángulo-Ángulo-Lado (AAL)</option>
+    </select>
+
+    <!-- Ejercicio generado dinámicamente -->
+    <div id="exercise" class="exercise"></div>
+
+    <!-- Respuesta del usuario -->
+    <label for="userAnswer">¿Son congruentes los triángulos?</label>
+    <select id="userAnswer">
+        <option value="si">Sí</option>
+        <option value="no">No</option>
+    </select>
+
+    <!-- Botón para comprobar la respuesta -->
+    <button onclick="checkAnswer()">Comprobar Respuesta</button>
+
+    <!-- Resultado de la comprobación -->
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    // Genera un ejercicio aleatorio según el criterio seleccionado
+    function generateExercise() {
+        const criteria = document.getElementById('criteria').value;
+        let exerciseText = '';
+        let correctAnswer = '';
+
+        if (criteria === 'LLL') {
+            // Lado-Lado-Lado: dos triángulos con 3 lados iguales
+            const side1 = Math.floor(Math.random() * 10) + 1;
+            const side2 = Math.floor(Math.random() * 10) + 1;
+            const side3 = Math.floor(Math.random() * 10) + 1;
+
+            exerciseText = `Triángulo 1: Lado 1 = ${side1} cm, Lado 2 = ${side2} cm, Lado 3 = ${side3} cm.<br>
+                            Triángulo 2: Lado 1 = ${side1} cm, Lado 2 = ${side2} cm, Lado 3 = ${side3} cm.<br>
+                            ¿Son congruentes según el criterio Lado-Lado-Lado (LLL)?`;
+
+            correctAnswer = 'si';
+        } else if (criteria === 'LAL') {
+            // Lado-Ángulo-Lado: dos triángulos con 2 lados y el ángulo entre ellos iguales
+            const side1 = Math.floor(Math.random() * 10) + 1;
+            const side2 = Math.floor(Math.random() * 10) + 1;
+            const angle = Math.floor(Math.random() * 90) + 1;
+
+            exerciseText = `Triángulo 1: Lado 1 = ${side1} cm, Ángulo entre los lados = ${angle}°, Lado 2 = ${side2} cm.<br>
+                            Triángulo 2: Lado 1 = ${side1} cm, Ángulo entre los lados = ${angle}°, Lado 2 = ${side2} cm.<br>
+                            ¿Son congruentes según el criterio Lado-Ángulo-Lado (LAL)?`;
+
+            correctAnswer = 'si';
+        } else if (criteria === 'ALA') {
+            // Ángulo-Lado-Ángulo: dos triángulos con un ángulo y los lados adyacentes iguales
+            const angle1 = Math.floor(Math.random() * 90) + 1;
+            const side1 = Math.floor(Math.random() * 10) + 1;
+            const angle2 = Math.floor(Math.random() * 90) + 1;
+
+            exerciseText = `Triángulo 1: Ángulo 1 = ${angle1}°, Lado = ${side1} cm, Ángulo 2 = ${angle2}°.<br>
+                            Triángulo 2: Ángulo 1 = ${angle1}°, Lado = ${side1} cm, Ángulo 2 = ${angle2}°.<br>
+                            ¿Son congruentes según el criterio Ángulo-Lado-Ángulo (ALA)?`;
+
+            correctAnswer = 'si';
+        } else if (criteria === 'AAL') {
+            // Ángulo-Ángulo-Lado: dos triángulos con 2 ángulos y un lado no comprendido iguales
+            const angle1 = Math.floor(Math.random() * 90) + 1;
+            const angle2 = Math.floor(Math.random() * 90) + 1;
+            const side = Math.floor(Math.random() * 10) + 1;
+
+            exerciseText = `Triángulo 1: Ángulo 1 = ${angle1}°, Ángulo 2 = ${angle2}°, Lado = ${side} cm.<br>
+                            Triángulo 2: Ángulo 1 = ${angle1}°, Ángulo 2 = ${angle2}°, Lado = ${side} cm.<br>
+                            ¿Son congruentes según el criterio Ángulo-Ángulo-Lado (AAL)?`;
+
+            correctAnswer = 'si';
+        }
+
+        // Mostrar ejercicio
+        document.getElementById('exercise').innerHTML = exerciseText;
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('userAnswer').value = '';
+
+        // Guardar la respuesta correcta
+        document.getElementById('exercise').dataset.correctAnswer = correctAnswer;
+    }
+
+    // Comprobar la respuesta del usuario
+    function checkAnswer() {
+        const userAnswer = document.getElementById('userAnswer').value;
+        const correctAnswer = document.getElementById('exercise').dataset.correctAnswer;
+
+        if (userAnswer === correctAnswer) {
+            document.getElementById('result').innerHTML = `<span class="correct">¡Correcto!</span>`;
+        } else {
+            document.getElementById('result').innerHTML = `<span class="incorrect">Incorrecto. La respuesta correcta es: ${correctAnswer === 'si' ? 'Sí' : 'No'}</span>`;
+        }
+    }
+
+    // Generar el primer ejercicio al cargar la página
+    generateExercise();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+<title>Botón Volver a la Primera Pestaña</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>volver</h1>
+    <p></p>
+    <button onclick="goToFirstPage()">Volver a la Primera Pestaña</button>
+</div>
+
+<script>
+    // Redirigir a la primera página (puedes cambiar la URL a la que quieras redirigir)
+    function goToFirstPage() {
+        window.location.href = "index.html";  // Cambia esto por la URL de tu primera página
+    }
+</script>
+
+</body>
+</html>

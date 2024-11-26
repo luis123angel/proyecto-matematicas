@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones Matemáticas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .operation {
+            font-size: 1.5em;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Operaciones Matemáticas</h1>
+
+        <!-- Mostrar la operación -->
+        <div id="operation" class="operation"></div>
+
+        <!-- Campo para introducir la respuesta -->
+        <input type="number" id="userAnswer" placeholder="Tu respuesta">
+
+        <!-- Botón para comprobar la respuesta -->
+        <button onclick="checkAnswer()">Comprobar Respuesta</button>
+
+        <!-- Resultado de la comprobación -->
+        <div id="result" class="result"></div>
+
+        <!-- Botón para generar una nueva operación -->
+        <button onclick="generateOperation()">Generar Nueva Operación</button>
+    </div>
+
+    <script>
+        let correctAnswer = 0;
+        let currentOperation = "";
+
+        // Función para generar una operación aleatoria
+        function generateOperation() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const operations = ['+', '-', '*', '/'];
+            const operation = operations[Math.floor(Math.random() * operations.length)];
+
+            currentOperation = `${num1} ${operation} ${num2}`;
+
+            // Generar la respuesta correcta según la operación
+            if (operation === '+') {
+                correctAnswer = num1 + num2;
+            } else if (operation === '-') {
+                correctAnswer = num1 - num2;
+            } else if (operation === '*') {
+                correctAnswer = num1 * num2;
+            } else if (operation === '/') {
+                // Asegurarse de que la división sea exacta
+                correctAnswer = num1 * num2;
+                currentOperation = `${correctAnswer} / ${num1}`;
+            }
+
+            // Mostrar la operación al usuario
+            document.getElementById('operation').innerText = `¿Cuánto es ${currentOperation}?`;
+            document.getElementById('result').innerText = '';
+            document.getElementById('userAnswer').value = '';
+        }
+
+        // Función para comprobar la respuesta del usuario
+        function checkAnswer() {
+            const userAnswer = parseFloat(document.getElementById('userAnswer').value);
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('result').innerHTML = `<span class="correct">¡Correcto!</span>`;
+            } else {
+                document.getElementById('result').innerHTML = `<span class="incorrect">Incorrecto. La respuesta correcta es ${correctAnswer}.</span>`;
+            }
+        }
+
+        // Generar la primera operación al cargar la página
+        generateOperation();
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+<title>Botón Volver a la Primera Pestaña</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            text-align: below;
+        }
+
+        button {
+            padding: 5px 5px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Volver</h1>
+    <p></p>
+    <button onclick="goToFirstPage()">Volver a la Primera Pestaña</button>
+</div>
+
+<script>
+    // Redirigir a la primera página (puedes cambiar la URL a la que quieras redirigir)
+    function goToFirstPage() {
+        window.location.href = "index.html";  // Cambia esto por la URL de tu primera página
+    }
+</script>
+
+</body>
+</html>
+    

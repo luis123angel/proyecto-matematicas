@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios con Exponentes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin: 10px 0;
+            display: block;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Propiedades de los Exponentes</h1>
+
+    <!-- Ejercicios de Exponentes -->
+    <label for="operation">Selecciona una propiedad de los exponentes:</label>
+    <select id="operation" onchange="generateExercise()">
+        <option value="multiply">Multiplicación de exponentes</option>
+        <option value="divide">División de exponentes</option>
+        <option value="powerOfPower">Potencia de una potencia</option>
+        <option value="powerOfProduct">Potencia de un producto</option>
+    </select>
+
+    <!-- Ejercicio generado dinámicamente -->
+    <div id="exercise" class="exercise"></div>
+
+    <!-- Respuesta del usuario -->
+    <label for="answer">Tu respuesta:</label>
+    <input type="number" id="userAnswer" placeholder="Introduce tu respuesta" />
+
+    <!-- Botón para comprobar la respuesta -->
+    <button onclick="checkAnswer()">Comprobar Respuesta</button>
+
+    <!-- Resultado de la comprobación -->
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    // Genera un ejercicio aleatorio según la propiedad seleccionada
+    function generateExercise() {
+        const operation = document.getElementById('operation').value;
+        let exercise = '';
+        let answer = 0;
+
+        if (operation === 'multiply') {
+            // Propiedad de multiplicación de exponentes: a^m * a^n = a^(m+n)
+            const base = Math.floor(Math.random() * 10) + 1;
+            const exp1 = Math.floor(Math.random() * 5) + 1;
+            const exp2 = Math.floor(Math.random() * 5) + 1;
+            exercise = `(${base}^${exp1}) * (${base}^${exp2}) = ?`;
+            answer = base ** (exp1 + exp2); // a^(m+n)
+        } else if (operation === 'divide') {
+            // Propiedad de división de exponentes: a^m / a^n = a^(m-n)
+            const base = Math.floor(Math.random() * 10) + 1;
+            const exp1 = Math.floor(Math.random() * 5) + 1;
+            const exp2 = Math.floor(Math.random() * 3) + 1;
+            exercise = `(${base}^${exp1}) / (${base}^${exp2}) = ?`;
+            answer = base ** (exp1 - exp2); // a^(m-n)
+        } else if (operation === 'powerOfPower') {
+            // Propiedad de potencia de una potencia: (a^m)^n = a^(m*n)
+            const base = Math.floor(Math.random() * 10) + 1;
+            const exp1 = Math.floor(Math.random() * 5) + 1;
+            const exp2 = Math.floor(Math.random() * 3) + 1;
+            exercise = `(${base}^${exp1})^${exp2} = ?`;
+            answer = base ** (exp1 * exp2); // a^(m*n)
+        } else if (operation === 'powerOfProduct') {
+            // Propiedad de potencia de un producto: (a*b)^n = a^n * b^n
+            const base1 = Math.floor(Math.random() * 5) + 1;
+            const base2 = Math.floor(Math.random() * 5) + 1;
+            const exp = Math.floor(Math.random() * 3) + 1;
+            exercise = `(${base1} * ${base2})^${exp} = ?`;
+            answer = (base1 ** exp) * (base2 ** exp); // (a*b)^n = a^n * b^n
+        }
+
+        // Mostrar ejercicio
+        document.getElementById('exercise').innerText = exercise;
+        document.getElementById('result').innerText = '';
+        document.getElementById('userAnswer').value = '';
+
+        // Guardar la respuesta correcta
+        document.getElementById('exercise').dataset.answer = answer;
+    }
+
+    // Comprobar la respuesta del usuario
+    function checkAnswer() {
+        const userAnswer = parseFloat(document.getElementById('userAnswer').value);
+        const correctAnswer = parseFloat(document.getElementById('exercise').dataset.answer);
+
+        if (userAnswer === correctAnswer) {
+            document.getElementById('result').innerHTML = `<span class="correct">¡Correcto! La respuesta es ${correctAnswer}</span>`;
+        } else {
+            document.getElementById('result').innerHTML = `<span class="incorrect">Incorrecto. La respuesta correcta es ${correctAnswer}</span>`;
+        }
+    }
+
+    // Generar el primer ejercicio al cargar la página
+    generateExercise();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+<title>Botón Volver a la Primera Pestaña</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Volver</h1>
+    <p></p>
+    <button onclick="goToFirstPage()">Volver a la Primera Pestaña</button>
+</div>
+
+<script>
+    // Redirigir a la primera página (puedes cambiar la URL a la que quieras redirigir)
+    function goToFirstPage() {
+        window.location.href = "index.html";  // Cambia esto por la URL de tu primera página
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
